@@ -109,7 +109,7 @@ app.get('/logout', (req, res) =>  {
 })
 
 // Set route to start OAuth link, this is where you define scopes to request
-app.get('/auth/twitch', passport.authenticate('twitch', { scope: 'user_read channel_editor channel_read' }));
+app.get('/auth/twitch', passport.authenticate('twitch', { scope: 'user_read channel_editor channel_read channel_subscriptions' }));
 
 // Set route for OAuth redirect
 app.get('/auth/twitch/callback', passport.authenticate('twitch', { successRedirect: '/', failureRedirect: '/' }));
@@ -213,6 +213,32 @@ app.get('/follower', (req,res) => {
         }
         
         request(followerOptions, followerCallback);
+    }
+})
+
+app.get('/subscriber', (req,res) => {
+    if(req.session && req.session.passport && req.session.passport.user) {
+        //GET Channel info
+        // prepare the header
+        var subsOptions = {
+            url : 'https://api.twitch.tv/kraken/channels/'+req.session.passport.user._id+'/subscriptions',
+            method : 'GET',
+            headers : {
+                'Accept' : 'application/vnd.twitchtv.v5+json',
+                'Client-ID' : TWITCH_CLIENT_ID,
+                'Authorization':'OAuth ' + req.session.passport.user.accessToken,
+            }
+        };
+
+        function subsCallback(error, response, body) {
+            if (!error && response.statusCode == 200) {
+                var subsRes = JSON.parse(body);
+                console.log(body);
+                res.send(subsRes);
+            }
+        }
+        
+        request(subsOptions, subsCallback);
     }
 })
 

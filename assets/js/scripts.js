@@ -38,14 +38,18 @@
                 //$('#offlineModal').modal('show');            
             }
         });
-        
+        var streamStartDate = new Date();
         $.get( "/stream", function( data ) {
             if(data && data != ""){
                 $( "#viewerCountTxt" ).html( data.viewers );
                 $( "#averageFpsTxt" ).html( data.average_fps );
                 $( "#delayTxt" ).html( data.delay );
-                $( "#streamStartTxt" ).html( data.created_at );
+                streamStartDate = new Date(data.created_at);
+                $( "#streamStartTxt" ).html( streamStartDate.toDateString() + " " +streamStartDate.getHours() + ":"+ streamStartDate.getMinutes() );
                 
+                setInterval(function () {
+                    $("#streamDurationTxt").html(msToTime(new Date() - streamStartDate) );
+                }, 1000);
             }
         });
 
@@ -63,8 +67,28 @@
                 var follows = data.follows;
                 for(var i =0; i< follows.length ;i++)
                 {
-                    $("#followerTable tbody").append('<tr><td class="v-align-middle semi-bold">'+follows[i].user.display_name+'</td><td class="v-align-middle">'+follows[i].created_at+'</td></tr>');
+                    var createdDate = new Date(follows[i].created_at);
+                    $("#followerTable tbody").append('<tr><td class="v-align-middle semi-bold">'+follows[i].user.display_name+'</td><td class="v-align-middle">'+createdDate.toDateString()+'</td></tr>');
                 }
             }
         });
+
+        $.get( "/subscriber", function( data ) {
+            if(data && data != ""){
+                $( "#subCountTxt" ).html( data._total );
+            }
+        });
     })
+
+    function msToTime(duration) {
+        var milliseconds = parseInt((duration%1000)/100)
+            , seconds = parseInt((duration/1000)%60)
+            , minutes = parseInt((duration/(1000*60))%60)
+            , hours = parseInt((duration/(1000*60*60))%24);
+
+        hours = (hours < 10) ? "0" + hours : hours;
+        minutes = (minutes < 10) ? "0" + minutes : minutes;
+        seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+        return hours + ":" + minutes + ":" + seconds ;
+    }
