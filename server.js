@@ -174,13 +174,8 @@ app.get('/viewer', (req,res) => {
         //GET Channel info
         // prepare the header
         var viewerOptions = {
-            url : 'https://tmi.twitch.tv/group/user/'+req.session.passport.user.display_name+'/chatters9.4k',
-            method : 'GET',
-            headers : {
-                'Accept' : 'application/vnd.twitchtv.v5+json',
-                'Client-ID' : TWITCH_CLIENT_ID,
-                'Authorization':'OAuth ' + req.session.passport.user.accessToken,
-            }
+            url : 'https://tmi.twitch.tv/group/user/'+req.session.passport.user.name+'/chatters',
+            method : 'GET'
         };
 
         function viewerCallback(error, response, body) {

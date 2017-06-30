@@ -38,12 +38,22 @@
                 //$('#offlineModal').modal('show');            
             }
         });
+        
+        $.get( "/stream", function( data ) {
+            if(data && data != ""){
+                $( "#viewerCountTxt" ).html( data.viewers );
+                $( "#averageFpsTxt" ).html( data.average_fps );
+                $( "#delayTxt" ).html( data.delay );
+                $( "#streamStartTxt" ).html( data.created_at );
+                
+            }
+        });
 
         $.get( "/viewer", function( data ) {
             if(data && data != ""){
-                for(var i =0; i< data.length ;i++)
+                for(var i =0; i< data.chatters.viewers.length ;i++)
                 {
-                    $("#viewerTable tbody").append('<tr><td class="v-align-middle semi-bold">'+data[i]+'</td></tr>');
+                    $("#viewerTable tbody").append('<tr><td class="v-align-middle semi-bold">'+data.chatters.viewers[i]+'</td></tr>');
                 }
             }
         });
