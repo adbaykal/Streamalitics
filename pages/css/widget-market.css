@@ -1,0 +1,33 @@
+/*------------------------------------------------------------------
+Pages Widget Market Place
+Option File
+------------------------------------------------------------------ */
+.dialog__content{
+	background: transparent;
+	border: 0;
+}
+.item-description{
+	z-index: 1000;
+	position: fixed;
+	background: #fff;
+	bottom: 0;
+	height: auto;
+	left: 0;
+	right: 0;
+	display: none;
+}
+
+.dialog--open .item-description{
+	display: block;
+}
+
+iframe body{
+	background: transparent;
+}
+.item-details .dialog__content{
+	border: 0px !important; 
+}
+
+body.dashboard, body.dashboard .page-container{
+	background-color: transparent !important
+}
