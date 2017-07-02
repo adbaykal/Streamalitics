@@ -306,6 +306,8 @@ app.post('/updateStreamInfo',(req,res) => {
     }
 })
 
-app.listen(3000, function() {
-  console.log('listening on 3000')
+var serverPort = process.env.PORT || 3000;
+
+app.listen(serverPort, function() {
+  console.log('listening on '+serverPort)
 })
