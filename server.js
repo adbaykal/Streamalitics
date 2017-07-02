@@ -14,7 +14,7 @@ var config = require('./config.json');
 const TWITCH_CLIENT_ID = config.TwitchClientId;
 const TWITCH_SECRET    = config.TwitchSecret;
 const SESSION_SECRET   = config.SessionSecret;
-const CALLBACK_URL     = config.TwitchCallbackUrl; 
+var CALLBACK_URL     = config.TwitchCallbackUrl; 
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
@@ -94,6 +94,8 @@ app.get('/', (req, res) =>  {
         res.render('index.ejs',analytics);
 
     } else {
+        CALLBACK_URL  = req.protocol + '://' + req.get('host') + config.TwitchCallbackUrl;
+
         res.render('login.ejs');
     }
 })
