@@ -242,6 +242,70 @@ app.get('/subscriber', (req,res) => {
     }
 })
 
+app.get('/games', (req,res) => {
+    if(req.session && req.session.passport && req.session.passport.user) {
+        //GET Channel info
+        // prepare the header
+        var gamesOptions = {
+            url : 'https://api.twitch.tv/kraken/games/top?limit=100',
+            method : 'GET',
+            headers : {
+                'Accept' : 'application/vnd.twitchtv.v5+json',
+                'Client-ID' : TWITCH_CLIENT_ID
+            }
+        };
+
+        function gamesCallback(error, response, body) {
+            if (!error && response.statusCode == 200) {
+                var gamesRes = JSON.parse(body);
+                console.log(body);
+                res.send(gamesRes);
+            }
+        }
+        
+        request(gamesOptions, gamesCallback);
+    }
+})
+
+app.post('/updateStreamInfo',(req,res) => {
+    if(req.session && req.session.passport && req.session.passport.user) {
+        //GET Channel info
+        // prepare the header
+        var reqObj = {
+            'channel':
+            {
+                'status': req.body.description,
+                'game':req.body.game
+            }
+        };
+
+        var updateOptions = {
+            url : 'https://api.twitch.tv/kraken/channels/' + req.session.passport.user._id,
+            method : 'PUT',
+            headers : {
+                'Accept' : 'application/vnd.twitchtv.v5+json',
+                'ContentType':'application/json',
+                'Client-ID' : TWITCH_CLIENT_ID,
+                'Authorization':'OAuth ' + req.session.passport.user.accessToken,
+            },
+            json: reqObj
+        };
+
+        function updateCallback(error, response, body) {
+            if (!error && response.statusCode == 200) {
+                var updateRes = body;
+                console.log(body);
+                res.send(updateRes);
+            }else
+            {
+                res.send(500,response.body);
+            }
+        }
+        
+        request(updateOptions, updateCallback);
+    }
+})
+
 app.listen(3000, function() {
   console.log('listening on 3000')
 })

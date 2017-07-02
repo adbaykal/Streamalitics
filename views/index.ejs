@@ -111,11 +111,12 @@
                             </div>
                           </div>
                           <div class="col-md-8">
-                            <h1><%= user.display_name %></h1>
-                            <span><i class="fa fa-gamepad m-l-10"></i> Playing</span> <span id="gameTxt" class=" text-danger font-montserrat"></span>
+                            <h2><%= user.display_name %></h2>
+                            <span><i class="fa fa-gamepad m-l-10"></i> Playing</span> <span id="gameTxt" class=" text-danger font-montserrat"></span><br>
+                            <h4 id="liveIndTxt" class=" text-danger font-montserrat"><i class="fa fa-circle m-l-10"></i> LIVE</h4>
                           </div>
                         </div>
-                        <hr>
+                        <hr class="m-t-5 m-b-5">
                         <div class="row">
                           <div class="col-md-12">
                             <div class="panel no-border bg-white no-margin widget-loader-bar">
@@ -160,7 +161,7 @@
                       <div class="panel-body">
                         <div class="row">
                           <div class="col-md-12">
-                            <span class="text-default fs-13">Title: <a href="" class="fa fa-edit"></a></span>  <h5 id="statusTxt" class="text-complete semi-bold">-</h5>
+                            <span class="text-default fs-13">Title: <a href="" id="editStreamLink" class="fa fa-edit"></a></span>  <h5 id="statusTxt" class="text-complete semi-bold">-</h5>
                           </div>
                         </div>
                         <hr>
@@ -219,7 +220,7 @@
                           <div class="table-responsive">
                               <table class="table table-hover table-condensed text-center" id="viewerTable">
                                 
-                                <tbody>
+                                <tbody id="viewerTbody">
                                   
                                 </tbody>
                               </table>
@@ -229,7 +230,7 @@
                           <div class="table-responsive">
                             <table class="table table-hover table-condensed" id="followerTable">
                               
-                              <tbody>
+                              <tbody id="followerTbody">
                                 
                               </tbody>
                             </table>
@@ -281,20 +282,42 @@
     </div>
     <!-- END PAGE CONTAINER -->
     <!-- Modal -->
-    <div class="modal fade slide-up disable-scroll" id="offlineModal" tabindex="-1" role="dialog" aria-hidden="false">
+    <div class="modal fade slide-up disable-scroll" id="editStreamModal" tabindex="-1" role="dialog" aria-hidden="false">
       <div class="modal-dialog ">
         <div class="modal-content-wrapper">
           <div class="modal-content">
             <div class="modal-header clearfix text-left">
-              <h2>Streamer Offline</h2>
-              <p class="p-b-10">Signed-in streamer is offline right now. You can use the below button to refresh.</p>
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i></button>
+              <h2>Edit Stream Info</h2>
+              <p class="p-b-10">You can edit your stream info from below and click update.</p>
             </div>
             <div class="modal-body">
-              <div class="row">
-                <div class="col-sm-4 m-t-10 sm-m-t-10">
-                  <a href="/" class="btn btn-primary btn-block m-t-5">Refresh</a>
+              <form role="form" id="updateStreamForm">
+                <div class="form-group-attached">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="form-group form-group-default">
+                        <label>Description:</label>
+                        <input type="text" id="description" name="description" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="form-group form-group-default">
+                        <label>Game:</label>
+                         <select class="full-width" id="game" name="game" data-init-plugin="select2">
+                         </select>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
+                <div class="row">
+                  <div class="col-sm-4 m-t-10 sm-m-t-10">
+                    <button type="button" id="streamSubmitBtn" class="btn btn-primary btn-block m-t-5">Update</button>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -315,12 +338,15 @@
     <script src="/assets/plugins/imagesloaded/imagesloaded.pkgd.min.js"></script>
     <script src="/assets/plugins/jquery-actual/jquery.actual.min.js"></script>
     <script src="/assets/plugins/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+    <script type="text/javascript" src="/assets/plugins/bootstrap-select2/select2.min.js"></script>
+
     <!-- END VENDOR JS -->
     <!-- BEGIN CORE TEMPLATE JS -->
     <script src="/pages/js/pages.js" type="text/javascript"></script>
     <!-- END CORE TEMPLATE JS -->
     <!-- BEGIN PAGE LEVEL JS -->
     <script src="/assets/js/scripts.js" type="text/javascript"></script>
+     <script src="/assets/js/notifications.js" type="text/javascript"></script>
     <!-- END PAGE LEVEL JS -->
   </body>
 </html>
