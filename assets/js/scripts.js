@@ -121,9 +121,9 @@
 
         $.get( "/viewer", function( data ) {
             if(data && data != ""){
+                $("#viewerTbody").empty();
                 for(var i =0; i< data.chatters.viewers.length ;i++)
                 {
-                    $("#viewerTbody").empty();
                     $("#viewerTbody").append('<tr><td class="v-align-middle semi-bold">'+data.chatters.viewers[i]+'</td></tr>');
                 }
             }
@@ -132,10 +132,10 @@
         $.get( "/follower", function( data ) {
             if(data && data != ""){
                 var follows = data.follows;
+                $("#followerTbody").empty();
                 for(var i =0; i< follows.length ;i++)
                 {
                     var createdDate = new Date(follows[i].created_at);
-                    $("#followerTbody").empty();
                     $("#followerTbody").append('<tr><td class="v-align-middle semi-bold">'+follows[i].user.display_name+'</td><td class="v-align-middle">'+createdDate.toDateString()+'</td></tr>');
                 }
             }

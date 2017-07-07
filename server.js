@@ -8,7 +8,13 @@ var OAuth2Strategy = require('passport-oauth').OAuth2Strategy;
 var request        = require('request');
 
 //config file
-var config = require('./config.json');
+var configFile = "./config.json";
+if(app.get('env') === "development")
+{
+    configFile = "./config.local.json";
+}
+
+var config = require(configFile);
 
 // Define our constants, you will change these with your own
 const TWITCH_CLIENT_ID = config.TwitchClientId;
@@ -175,10 +181,16 @@ app.get('/viewer', (req,res) => {
     if(req.session && req.session.passport && req.session.passport.user) {
         //GET Channel info
         // prepare the header
-        var viewerOptions = {
+        /*var viewerOptions = {
             url : 'https://tmi.twitch.tv/group/user/'+req.session.passport.user.name+'/chatters',
             method : 'GET'
+        };*/
+        
+        var viewerOptions = {
+            url : 'https://tmi.twitch.tv/group/user/playhearthstone/chatters',
+            method : 'GET'
         };
+        
 
         function viewerCallback(error, response, body) {
             if (!error && response.statusCode == 200) {
