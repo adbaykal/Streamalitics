@@ -181,17 +181,11 @@ app.get('/viewer', (req,res) => {
     if(req.session && req.session.passport && req.session.passport.user) {
         //GET Channel info
         // prepare the header
-        /*var viewerOptions = {
-            url : 'https://tmi.twitch.tv/group/user/'+req.session.passport.user.name+'/chatters',
-            method : 'GET'
-        };*/
-        
         var viewerOptions = {
-            url : 'https://tmi.twitch.tv/group/user/playhearthstone/chatters',
+            url : 'https://tmi.twitch.tv/group/user/'+req.session.passport.user.name+'/chatters',
             method : 'GET'
         };
         
-
         function viewerCallback(error, response, body) {
             if (!error && response.statusCode == 200) {
                 var viewerRes = JSON.parse(body);
