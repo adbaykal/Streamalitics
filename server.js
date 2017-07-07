@@ -320,6 +320,7 @@ app.post('/updateStreamInfo',(req,res) => {
     }
 })
 
+//Server port info gurtell's comment
 var serverPort = process.env.PORT || 3000;
 
 app.listen(serverPort, function() {
