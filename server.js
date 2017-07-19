@@ -81,11 +81,6 @@ passport.use('twitch', new OAuth2Strategy({
     profile.accessToken = accessToken;
     profile.refreshToken = refreshToken;
 
-    // Securely store user profile in your DB
-    //User.findOrCreate(..., function(err, user) {
-    //  done(err, user);
-    //});
-
     done(null, profile);
   }
 ));
@@ -126,7 +121,6 @@ app.get('/auth/twitch/callback', passport.authenticate('twitch', { successRedire
 //JSON Actions
 app.get('/channel', (req,res) => {
     if(req.session && req.session.passport && req.session.passport.user) {
-        //GET Channel info
         // prepare the header
         var chanOptions = {
             url : 'https://api.twitch.tv/kraken/channel',
@@ -153,7 +147,6 @@ app.get('/channel', (req,res) => {
 
 app.get('/stream', (req,res) => {
     if(req.session && req.session.passport && req.session.passport.user) {
-        //GET Channel info
         // prepare the header
         var streamOptions = {
             url : 'https://api.twitch.tv/kraken/streams/'+req.session.passport.user._id,
@@ -179,7 +172,6 @@ app.get('/stream', (req,res) => {
 
 app.get('/viewer', (req,res) => {
     if(req.session && req.session.passport && req.session.passport.user) {
-        //GET Channel info
         // prepare the header
         var viewerOptions = {
             url : 'https://tmi.twitch.tv/group/user/'+req.session.passport.user.name+'/chatters',
@@ -200,7 +192,6 @@ app.get('/viewer', (req,res) => {
 
 app.get('/follower', (req,res) => {
     if(req.session && req.session.passport && req.session.passport.user) {
-        //GET Channel info
         // prepare the header
         var followerOptions = {
             url : 'https://api.twitch.tv/kraken/channels/'+req.session.passport.user._id+'/follows',
@@ -226,7 +217,6 @@ app.get('/follower', (req,res) => {
 
 app.get('/subscriber', (req,res) => {
     if(req.session && req.session.passport && req.session.passport.user) {
-        //GET Channel info
         // prepare the header
         var subsOptions = {
             url : 'https://api.twitch.tv/kraken/channels/'+req.session.passport.user._id+'/subscriptions',
@@ -252,7 +242,6 @@ app.get('/subscriber', (req,res) => {
 
 app.get('/games', (req,res) => {
     if(req.session && req.session.passport && req.session.passport.user) {
-        //GET Channel info
         // prepare the header
         var gamesOptions = {
             url : 'https://api.twitch.tv/kraken/games/top?limit=100',
@@ -277,7 +266,6 @@ app.get('/games', (req,res) => {
 
 app.post('/updateStreamInfo',(req,res) => {
     if(req.session && req.session.passport && req.session.passport.user) {
-        //GET Channel info
         // prepare the header
         var reqObj = {
             'channel':

@@ -1,6 +1,0 @@
-{
-    "TwitchClientId": "anqk4h5gtq0uhtkm3mb4dtie17vepq",
-    "TwitchSecret":"ugjw1luhcku01p1t0etkdr7jyre9k7",
-    "SessionSecret":"38kxPMuyMf",
-    "TwitchCallbackUrl": "/auth/twitch/callback"
-}
