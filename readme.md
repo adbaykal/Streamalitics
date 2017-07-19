@@ -32,7 +32,7 @@ node server.js
 
 ## Contributors
 
-Thanks to [Gürkan Telseren](https://github.com/gurtell) Gürkan Telseren for ideas for improvement and code contribution.
+Thanks to [Gürkan Telseren](https://github.com/gurtell) for ideas for improvement and code contribution.
 
 ## License
 
