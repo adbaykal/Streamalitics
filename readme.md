@@ -2,6 +2,7 @@
 
 Streamalitics is an open-source Twitch Streamer Dashboard utility which viewers can monitor Twitch statistics during their streams. 
 
+You can access the running version of the site from [www.streamalitics.com](http://www.streamalitics.com)
 
 ## Used Components
 
