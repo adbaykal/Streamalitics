@@ -19,15 +19,15 @@ This code contains node.js backend of the application. Since the front-end were 
 
 You need to install neccessary dependencies by running:
 
-'''
+```
 npm install
-'''
+```
 
 After installing you can run the program by:
 
-'''
+```
 node server.js
-'''
+```
 
 ## Contributors
 
